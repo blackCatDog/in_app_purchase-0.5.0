@@ -52,19 +52,6 @@ use.
 ### Initializing the plugin
 
 ```dart
-void main() {
-  // Inform the plugin that this app supports pending purchases on Android.
-  // An error will occur on Android if you access the plugin `instance`
-  // without this call.
-  //
-  // On iOS this is a no-op.
-  InAppPurchaseConnection.enablePendingPurchases();
-  
-  runApp(MyApp());
-}
-```
-
-```dart
 // Subscribe to any incoming purchases at app initialization. These can
 // propagate from either storefront so it's important to listen as soon as
 // possible to avoid losing events.
@@ -103,7 +90,7 @@ if (!available) {
 // Set literals require Dart 2.2. Alternatively, use `Set<String> _kIds = <String>['product1', 'product2'].toSet()`.
 const Set<String> _kIds = {'product1', 'product2'};
 final ProductDetailsResponse response = await InAppPurchaseConnection.instance.queryProductDetails(_kIds);
-if (response.notFoundIDs.isNotEmpty) {
+if (!response.notFoundIDs.isEmpty) {
     // Handle the error.
 }
 List<ProductDetails> products = response.productDetails;
@@ -133,24 +120,6 @@ once they're marked as consumed and fails to return them here. For restoring
 these across devices you'll need to persist them on your own server and query
 that as well.
 
-### Listening to purchase updates
-
-You should always start listening to purchase update as early as possible to be able
-to catch all purchase updates, including the ones from the previous app session.
-To listen to the update:
-
-```dart
-  Stream purchaseUpdated =
-      InAppPurchaseConnection.instance.purchaseUpdatedStream;
-  _subscription = purchaseUpdated.listen((purchaseDetailsList) {
-    _listenToPurchaseUpdated(purchaseDetailsList);
-  }, onDone: () {
-    _subscription.cancel();
-  }, onError: (error) {
-    // handle error here.
-  });
-```
-
 ### Making a purchase
 
 Both storefronts handle consumable and non-consumable products differently. If
@@ -165,47 +134,15 @@ if (_isConsumable(productDetails)) {
 } else {
     InAppPurchaseConnection.instance.buyNonConsumable(purchaseParam: purchaseParam);
 }
+
 // From here the purchase flow will be handled by the underlying storefront.
 // Updates will be delivered to the `InAppPurchaseConnection.instance.purchaseUpdatedStream`.
-```
-
-### Complete a purchase
-
-The `InAppPurchaseConnection.purchaseUpdatedStream` will send purchase updates after
-you initiate the purchase flow using `InAppPurchaseConnection.buyConsumable` or `InAppPurchaseConnection.buyNonConsumable`.
-After delivering the content to the user, you need to call `InAppPurchaseConnection.completePurchase` to tell the `GooglePlay`
-and `AppStore` that the purchase has been finished.
-
-WARNING! Failure to call `InAppPurchaseConnection.completePurchase` and get a successful response within 3 days of the purchase will result a refund.
-
-### Upgrading or Downgrading an existing InApp Subscription
-
-In order to upgrade/downgrade an existing InApp subscription on `PlayStore`, 
-you need to provide an instance of `ChangeSubscriptionParam` with the old 
-`PurchaseDetails` that the user needs to migrate from, and an optional `ProrationMode`
-with the `PurchaseParam` object while calling `InAppPurchaseConnection.buyNonConsumable`.
-`AppStore` does not require this since they provides a subscription grouping mechanism. 
-Each subscription you offer must be assigned to a subscription group. 
-So the developers can group related subscriptions together to prevents users from 
-accidentally purchasing multiple subscriptions.
-Please refer to the 'Creating a Subscription Group' sections of [Apple's subscription guide](https://developer.apple.com/app-store/subscriptions/)
-
-
-```dart
-final PurchaseDetails oldPurchaseDetails = ...;
-PurchaseParam purchaseParam = PurchaseParam(
-    productDetails: productDetails,
-    changeSubscriptionParam: ChangeSubscriptionParam(
-        oldPurchaseDetails: oldPurchaseDetails,
-        prorationMode: ProrationMode.immediateWithTimeProration));
-InAppPurchaseConnection.instance
-    .buyNonConsumable(purchaseParam: purchaseParam);
 ```
 
 ## Development
 
 This plugin uses
-[json_serializable](https://pub.dev/packages/json_serializable) for the
+[json_serializable](https://pub.dartlang.org/packages/json_serializable) for the
 many data structs passed between the underlying platform layers and Dart. After
 editing any of the serialized data structs, rebuild the serializers by running
 `flutter packages pub run build_runner build --delete-conflicting-outputs`.
