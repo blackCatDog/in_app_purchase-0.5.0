@@ -11,13 +11,13 @@ SKPaymentTransactionWrapper _$SKPaymentTransactionWrapperFromJson(Map json) {
     payment: SKPaymentWrapper.fromJson(
         Map<String, dynamic>.from(json['payment'] as Map)),
     transactionState: const SKTransactionStatusConverter()
-        .fromJson(json['transactionState'] as int?),
+        .fromJson(json['transactionState'] as int),
     originalTransaction: json['originalTransaction'] == null
         ? null
         : SKPaymentTransactionWrapper.fromJson(
             Map<String, dynamic>.from(json['originalTransaction'] as Map)),
-    transactionTimeStamp: (json['transactionTimeStamp'] as num?)?.toDouble(),
-    transactionIdentifier: json['transactionIdentifier'] as String?,
+    transactionTimeStamp: (json['transactionTimeStamp'] as num)?.toDouble(),
+    transactionIdentifier: json['transactionIdentifier'] as String,
     error: json['error'] == null
         ? null
         : SKError.fromJson(Map<String, dynamic>.from(json['error'] as Map)),

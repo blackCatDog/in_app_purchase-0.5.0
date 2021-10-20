@@ -25,8 +25,8 @@ Map<String, dynamic> _$_SerializedEnumsToJson(_SerializedEnums instance) =>
 
 K _$enumDecode<K, V>(
   Map<K, V> enumValues,
-  Object? source, {
-  K? unknownValue,
+  Object source, {
+  K unknownValue,
 }) {
   if (source == null) {
     throw ArgumentError(

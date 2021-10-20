@@ -12,12 +12,12 @@ part 'enum_converters.g.dart';
 ///
 /// Use these in `@JsonSerializable()` classes by annotating them with
 /// `@BillingResponseConverter()`.
-class BillingResponseConverter implements JsonConverter<BillingResponse, int?> {
+class BillingResponseConverter implements JsonConverter<BillingResponse, int> {
   /// Default const constructor.
   const BillingResponseConverter();
 
   @override
-  BillingResponse fromJson(int? json) {
+  BillingResponse fromJson(int json) {
     if (json == null) {
       return BillingResponse.error;
     }
@@ -26,19 +26,19 @@ class BillingResponseConverter implements JsonConverter<BillingResponse, int?> {
   }
 
   @override
-  int toJson(BillingResponse object) => _$BillingResponseEnumMap[object]!;
+  int toJson(BillingResponse object) => _$BillingResponseEnumMap[object];
 }
 
 /// Serializer for [SkuType].
 ///
 /// Use these in `@JsonSerializable()` classes by annotating them with
 /// `@SkuTypeConverter()`.
-class SkuTypeConverter implements JsonConverter<SkuType, String?> {
+class SkuTypeConverter implements JsonConverter<SkuType, String> {
   /// Default const constructor.
   const SkuTypeConverter();
 
   @override
-  SkuType fromJson(String? json) {
+  SkuType fromJson(String json) {
     if (json == null) {
       return SkuType.inapp;
     }
@@ -47,19 +47,19 @@ class SkuTypeConverter implements JsonConverter<SkuType, String?> {
   }
 
   @override
-  String toJson(SkuType object) => _$SkuTypeEnumMap[object]!;
+  String toJson(SkuType object) => _$SkuTypeEnumMap[object];
 }
 
 /// Serializer for [ProrationMode].
 ///
 /// Use these in `@JsonSerializable()` classes by annotating them with
 /// `@ProrationModeConverter()`.
-class ProrationModeConverter implements JsonConverter<ProrationMode, int?> {
+class ProrationModeConverter implements JsonConverter<ProrationMode, int> {
   /// Default const constructor.
   const ProrationModeConverter();
 
   @override
-  ProrationMode fromJson(int? json) {
+  ProrationMode fromJson(int json) {
     if (json == null) {
       return ProrationMode.unknownSubscriptionUpgradeDowngradePolicy;
     }
@@ -68,16 +68,16 @@ class ProrationModeConverter implements JsonConverter<ProrationMode, int?> {
   }
 
   @override
-  int toJson(ProrationMode object) => _$ProrationModeEnumMap[object]!;
+  int toJson(ProrationMode object) => _$ProrationModeEnumMap[object];
 }
 
 // Define a class so we generate serializer helper methods for the enums
 @JsonSerializable()
 class _SerializedEnums {
-  late BillingResponse response;
-  late SkuType type;
-  late PurchaseStateWrapper purchaseState;
-  late ProrationMode prorationMode;
+   BillingResponse response;
+   SkuType type;
+   PurchaseStateWrapper purchaseState;
+   ProrationMode prorationMode;
 }
 
 /// Serializer for [PurchaseStateWrapper].
@@ -85,12 +85,12 @@ class _SerializedEnums {
 /// Use these in `@JsonSerializable()` classes by annotating them with
 /// `@PurchaseStateConverter()`.
 class PurchaseStateConverter
-    implements JsonConverter<PurchaseStateWrapper, int?> {
+    implements JsonConverter<PurchaseStateWrapper, int> {
   /// Default const constructor.
   const PurchaseStateConverter();
 
   @override
-  PurchaseStateWrapper fromJson(int? json) {
+  PurchaseStateWrapper fromJson(int json) {
     if (json == null) {
       return PurchaseStateWrapper.unspecified_state;
     }
@@ -101,7 +101,7 @@ class PurchaseStateConverter
 
   @override
   int toJson(PurchaseStateWrapper object) =>
-      _$PurchaseStateWrapperEnumMap[object]!;
+      _$PurchaseStateWrapperEnumMap[object];
 
   /// Converts the purchase state stored in `object` to a [PurchaseStatus].
   ///
