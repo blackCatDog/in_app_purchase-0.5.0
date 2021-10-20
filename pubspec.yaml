@@ -19,8 +19,8 @@ dev_dependencies:
     sdk: flutter
   flutter_driver:
     sdk: flutter
-  in_app_purchase_example:
-    path: example/
+#  in_app_purchase_example:
+#    path: example/
   test: ^1.5.2
   shared_preferences: ^0.5.2
   e2e: ^0.2.0
