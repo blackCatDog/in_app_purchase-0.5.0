@@ -65,7 +65,7 @@ class GooglePlayConnection
             sku: purchaseParam.productDetails.id,
             accountId: purchaseParam.applicationUserName,
             oldSku: purchaseParam.changeSubscriptionParam == null?null: purchaseParam.changeSubscriptionParam.oldPurchaseDetails== null?null:purchaseParam.changeSubscriptionParam.oldPurchaseDetails.productID,
-            purchaseToken: purchaseParam.changeSubscriptionParam.oldPurchaseDetails == null?null: purchaseParam.changeSubscriptionParam.oldPurchaseDetails.verificationData.serverVerificationData,
+            purchaseToken:purchaseParam.changeSubscriptionParam == null?null: purchaseParam.changeSubscriptionParam.oldPurchaseDetails == null?null: purchaseParam.changeSubscriptionParam.oldPurchaseDetails.verificationData.serverVerificationData,
             prorationMode: purchaseParam.changeSubscriptionParam == null?null: purchaseParam.changeSubscriptionParam?.prorationMode);
     return billingResultWrapper.responseCode == BillingResponse.ok;
   }
